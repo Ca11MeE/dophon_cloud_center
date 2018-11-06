@@ -1,4 +1,7 @@
 from dophon_cloud_center import reg_center
+from dophon import logger
+
+logger.inject_logger(globals())
 
 
 def active_center(prop_obj: dict, singleton: bool = True, clusters: int = 0):

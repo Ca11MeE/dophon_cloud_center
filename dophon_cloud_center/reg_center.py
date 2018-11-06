@@ -5,6 +5,9 @@ import threading
 import urllib3
 from flask_bootstrap import Bootstrap
 import time
+from dophon import logger
+
+logger.inject_logger(globals())
 
 config = ['DOPHON_REG_CENTER_CLUSTERS']  # 公共配置
 
@@ -110,8 +113,8 @@ class Center(Flask):
             return abort(404)
 
     def reg_service(self, name):
-        print('ri:', str(id(self.reg_info)), 'sri:', str(id(self.__self_reg_info)))
-        print(self._center_config['broadcast_heartbeat'])
+        logger.info('ri: %s sri:%s' % (str(id(self.reg_info)),str(id(self.__self_reg_info))))
+        logger.info('%s' % (self._center_config['broadcast_heartbeat']))
         reg_info = self._reg_info if self._center_config['broadcast_heartbeat'] else self.__self_reg_info
         reg_info_cache = self._reg_info
         # 处理多实例服务注册
